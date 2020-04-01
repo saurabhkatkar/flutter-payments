@@ -1,6 +1,7 @@
-# paymentapp
+# Payment App
 
-A new Flutter application.
+A new Flutter Payment application. Boiler plate Code.
+Enter you Razor Pay api key to make payments.
 
 ## Getting Started
 
