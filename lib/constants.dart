@@ -1,5 +1,4 @@
-const PAYMENT_URL =
-    "http://{YOUR-HOST-URL}/flutter-payments/us-central1/customFunctions/payment";
+const PAYMENT_URL = "http://{YOUR-HOST-URL}/payment";
 
 const ORDER_DATA = {
   "custID": "USER_1122334455",
