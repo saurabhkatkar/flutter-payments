@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:paymentapp/paytmScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,15 +14,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Payment',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Payments App'),
@@ -39,8 +31,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  TextEditingController _amountController = TextEditingController();
   static const platform = const MethodChannel("razorpay_flutter");
-  String price;
   Razorpay _razorpay;
 
   @override
@@ -57,10 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  //Razor Pay Code Start
   void openCheckout() async {
     var options = {
       'key': '<YOUR-RAZORPAY-API-KEY>',
-      'amount': int.parse(price) * 100,
+      'amount': int.parse(_amountController.text) * 100,
       'name': 'Acme Corp.',
       'description': 'Fine T-Shirt',
       'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
@@ -91,6 +84,12 @@ class _MyHomePageState extends State<MyHomePage> {
         msg: "EXTERNAL_WALLET: " + response.walletName, timeInSecForIosWeb: 4);
   }
 
+  //Razor Pay Code Ends
+
+  //PayTM Code Start
+  void openPaytm() async {}
+  //PayTM Code Ends
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,9 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(hintText: 'Enter Price'),
                 style: TextStyle(fontSize: 20.0),
-                onChanged: (value) {
-                  price = value;
-                },
+                controller: _amountController,
               ),
             ),
             RaisedButton(
@@ -119,7 +116,26 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.symmetric(vertical: 17.0, horizontal: 45.0),
               shape: StadiumBorder(),
               onPressed: openCheckout,
-              child: Text("Pay"),
+              child: Text("Pay via RazorPay"),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            RaisedButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              padding: EdgeInsets.symmetric(vertical: 17.0, horizontal: 45.0),
+              shape: StadiumBorder(),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => PaytmScreen(
+                      amount: _amountController.text,
+                    ),
+                  ),
+                );
+              },
+              child: Text("Pay via PayTM"),
             ),
           ],
         ),
