@@ -3,6 +3,11 @@
 A new Flutter Payment application. Boiler plate Code.
 Enter you Razor Pay api key to make payments.
 
+Paytm Integration is in development phase.
+To Integrate Paytm Payment System . It needs hosted Node server and its URL replaced in constants.dart file. Here is code for Node Server. Since Webview plugin flutter in development while writting this. There are Keyboard issues, so Payment options like credit and debit card faces some issue while entering card details.
+
+RazorPay Integration is easy and it works out of the box . No extra changes has to be done. Just plug and play.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
